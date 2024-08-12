@@ -13,16 +13,31 @@ class TabsScreen extends StatefulWidget {
 class _TabsScreenState extends State<TabsScreen> {
   int _selectedPageIndex = 0;
   final List<Meal> _favoritesMeals = [];
+  void _showInfoMessage(String message)
+  {
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message))
+    );
+  }
   void _toggleMealFavoriteStatus(Meal meal)
   {
     final isExsisting = _favoritesMeals.contains(meal);
     if(isExsisting)
     {
-      _favoritesMeals.remove(meal);
+      setState(() {
+        _favoritesMeals.remove(meal);
+        _showInfoMessage('Meal is no longer a favorite.');
+      });
+      //_favoritesMeals.remove(meal);
     }
     else
     {
-      _favoritesMeals.add(meal);
+      setState(() {
+        _favoritesMeals.add(meal);
+        _showInfoMessage('Marked as favorite.');
+      });
+      //_favoritesMeals.add(meal);
     }
   }
   void _selectPage(int index)
