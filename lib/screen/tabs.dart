@@ -47,6 +47,17 @@ class _TabsScreenState extends State<TabsScreen> {
       _selectedPageIndex = index;
     });
   }
+  void _setScreen(String identifier)
+  {
+    if(identifier == 'filters')
+    {
+
+    }
+    else{
+      Navigator.of(context).pop();
+    }
+
+  }
   @override
   Widget build(BuildContext context) {
     Widget activeScreen = CategoryScreen(onToggleFavorite: _toggleMealFavoriteStatus,);
@@ -60,7 +71,7 @@ class _TabsScreenState extends State<TabsScreen> {
       appBar: AppBar(
         title: Text(activePageTitle),
       ),
-      drawer: const MainDrawer(),
+      drawer: MainDrawer(onSelectScreen: _setScreen,),
       body: activeScreen,
       bottomNavigationBar: BottomNavigationBar(
         onTap: _selectPage,
