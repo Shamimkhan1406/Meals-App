@@ -40,7 +40,8 @@ class _FilterScreenState extends State<FilterScreen> {
       //   }),
       // ),
       body: PopScope(
-        onPopInvoked: (bool didPop){
+        canPop: false,
+        onPopInvoked: (didPop){
           if(didPop) return;
           Navigator.of(context).pop(
             {
