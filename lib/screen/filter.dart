@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+// import 'package:meals_app/screen/tabs.dart';
+// import 'package:meals_app/widget/main_drawer.dart';
 
 class FilterScreen extends StatefulWidget {
   const FilterScreen({super.key});
@@ -15,23 +17,41 @@ class _FilterScreenState extends State<FilterScreen> {
       appBar: AppBar(
         title: const Text('Filter Screen'),
       ),
+      // drawer: MainDrawer(
+      //   onSelectScreen: ((identifier) {
+      //     Navigator.of(context).pop();
+      //     if (identifier == 'meals') {
+      //       Navigator.of(context).pushReplacement(
+      //         MaterialPageRoute(
+      //           builder: (context) => const TabsScreen(),
+      //         ),
+      //       );
+      //     }
+      //   }),
+      // ),
       body: Column(
         children: [
           SwitchListTile(
-            value: _glutenFreeFilterSet, 
-            onChanged: (isChacked){
+            value: _glutenFreeFilterSet,
+            onChanged: (isChacked) {
               setState(() {
                 _glutenFreeFilterSet = isChacked;
               });
             },
-            title: Text('Gluten-Free',style: Theme.of(context).textTheme.titleLarge!.copyWith(
-              color: Theme.of(context).colorScheme.onBackground,
-            ),),
-            subtitle: Text('only include gluten-free meals',style: Theme.of(context).textTheme.titleLarge!.copyWith(
-              color: Theme.of(context).colorScheme.onBackground,
-            ),),
+            title: Text(
+              'Gluten-Free',
+              style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                    color: Theme.of(context).colorScheme.onBackground,
+                  ),
+            ),
+            subtitle: Text(
+              'only include gluten-free meals',
+              style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                    color: Theme.of(context).colorScheme.onBackground,
+                  ),
+            ),
             activeColor: Theme.of(context).colorScheme.tertiary,
-            contentPadding: const EdgeInsets.only(left: 34,right: 22),
+            contentPadding: const EdgeInsets.only(left: 34, right: 22),
           )
         ],
       ),
