@@ -14,12 +14,13 @@ class MealsScreen extends StatelessWidget {
   final List<Meal> meals;
   final void Function(Meal meal) onToggleFavorite;
 
-  void selectMeal(BuildContext context,Meal meal)
-  {
+  void selectMeal(BuildContext context, Meal meal) {
     Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (context)=>
-          DetailScreen(meal: meal,onToggleFavorite: onToggleFavorite,),
+        builder: (context) => DetailScreen(
+          meal: meal,
+          onToggleFavorite: onToggleFavorite,
+        ),
       ),
     );
   }
@@ -27,41 +28,49 @@ class MealsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget contant = Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              "oh ho... Nothing here!",
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineLarge!
-                  .copyWith(color: Theme.of(context).colorScheme.onBackground),
-            ),
-            Text(
-              'Try selecting a diffrent category.',
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyLarge!
-                  .copyWith(color: Theme.of(context).colorScheme.onBackground),
-            ),
-          ],
-        ),
-      );
-    
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            "oh ho... Nothing here!",
+            style: Theme.of(context)
+                .textTheme
+                .headlineLarge!
+                .copyWith(color: Theme.of(context).colorScheme.onBackground),
+          ),
+          Text(
+            'Try selecting a diffrent category.',
+            style: Theme.of(context)
+                .textTheme
+                .bodyLarge!
+                .copyWith(color: Theme.of(context).colorScheme.onBackground),
+          ),
+        ],
+      ),
+    );
+
     if (meals.isNotEmpty) {
       contant = ListView.builder(
         itemCount: meals.length,
-        itemBuilder: ((context, index) => MealItem(meal: meals[index],onSelectMeal: (context, meal) {
-          selectMeal(context, meal);
-        },)),
+        itemBuilder: ((context, index) => MealItem(
+              meal: meals[index],
+              onSelectMeal: (context, meal) {
+                selectMeal(context, meal);
+              },
+            )),
       );
     }
-    if(title == null)
-    {
+    if (title == null) {
       return contant;
     }
     return Scaffold(
       appBar: AppBar(
+        // leading: IconButton(
+        //   icon: const Icon(Icons.arrow_back),
+        //   onPressed: () {
+        //     Navigator.of(context).pop(); // Go back to the previous route
+        //   },
+        // ),
         title: Text(title!),
       ),
       body: contant,
