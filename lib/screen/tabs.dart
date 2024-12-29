@@ -6,6 +6,7 @@ import 'package:meals_app/screen/filter.dart';
 import 'package:meals_app/screen/meals.dart';
 import 'package:meals_app/widget/main_drawer.dart';
 import 'package:meals_app/providers/meals_provider.dart';
+import 'package:meals_app/providers/favorites_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 const kInitialFilters = {
@@ -24,30 +25,30 @@ class TabsScreen extends ConsumerStatefulWidget {
 
 class _TabsScreenState extends ConsumerState<TabsScreen> {
   int _selectedPageIndex = 0;
-  final List<Meal> _favoritesMeals = [];
+  //final List<Meal> _favoritesMeals = [];
   Map<Filter, bool> _selectedFilters = kInitialFilters;
-  void _showInfoMessage(String message) {
-    ScaffoldMessenger.of(context).clearSnackBars();
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(message)));
-  }
+  // void _showInfoMessage(String message) {
+  //   ScaffoldMessenger.of(context).clearSnackBars();
+  //   ScaffoldMessenger.of(context)
+  //       .showSnackBar(SnackBar(content: Text(message)));
+  // }
 
-  void _toggleMealFavoriteStatus(Meal meal) {
-    final isExsisting = _favoritesMeals.contains(meal);
-    if (isExsisting) {
-      setState(() {
-        _favoritesMeals.remove(meal);
-        _showInfoMessage('Meal is no longer a favorite.');
-      });
-      //_favoritesMeals.remove(meal);
-    } else {
-      setState(() {
-        _favoritesMeals.add(meal);
-        _showInfoMessage('Marked as favorite.');
-      });
-      //_favoritesMeals.add(meal);
-    }
-  }
+  // void _toggleMealFavoriteStatus(Meal meal) {
+  //   final isExsisting = _favoritesMeals.contains(meal);
+  //   if (isExsisting) {
+  //     setState(() {
+  //       _favoritesMeals.remove(meal);
+  //       _showInfoMessage('Meal is no longer a favorite.');
+  //     });
+  //     //_favoritesMeals.remove(meal);
+  //   } else {
+  //     setState(() {
+  //       _favoritesMeals.add(meal);
+  //       _showInfoMessage('Marked as favorite.');
+  //     });
+  //     //_favoritesMeals.add(meal);
+  //   }
+  // }
 
   void _selectPage(int index) {
     setState(() {
@@ -88,14 +89,15 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
       return true;
     }).toList();
     Widget activeScreen = CategoryScreen(
-      onToggleFavorite: _toggleMealFavoriteStatus,
+      //onToggleFavorite: _toggleMealFavoriteStatus,
       availableMeals: availableMeals,
     );
     var activePageTitle = 'Categories';
     if (_selectedPageIndex == 1) {
+      final favoritesMeals = ref.watch(fevoritesMeals_Provider);
       activeScreen = MealsScreen(
-        meals: _favoritesMeals,
-        onToggleFavorite: _toggleMealFavoriteStatus,
+        meals: favoritesMeals,
+        //onToggleFavorite: _toggleMealFavoriteStatus,
       );
       activePageTitle = 'Your Favorites';
     }
