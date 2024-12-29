@@ -7,6 +7,7 @@ enum Filter{
   vegan,
 }
 
+// ignore: camel_case_types
 class filtersNotifier extends StateNotifier<Map<Filter,bool>>{
   filtersNotifier() : super({
     Filter.glutenFree : false,
