@@ -5,7 +5,7 @@ import 'package:meals_app/screen/category_screen.dart';
 import 'package:meals_app/screen/filter.dart';
 import 'package:meals_app/screen/meals.dart';
 import 'package:meals_app/widget/main_drawer.dart';
-import 'package:meals_app/providers/meals_provider.dart';
+//import 'package:meals_app/providers/meals_provider.dart';
 import 'package:meals_app/providers/favorites_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meals_app/providers/filters_provider.dart';
@@ -75,23 +75,24 @@ class _TabsScreenState extends ConsumerState<TabsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final meals = ref.watch(mealProvider);
-    final activeFilters = ref.watch(filterProvider);
-    final availableMeals = meals.where((meal) {
-      if (activeFilters[Filter.glutenFree]! && !meal.isGlutenFree) {
-        return false;
-      }
-      if (activeFilters[Filter.lactoseFree]! && !meal.isLactoseFree) {
-        return false;
-      }
-      if (activeFilters[Filter.vegetarian]! && !meal.isVegetarian) {
-        return false;
-      }
-      if (activeFilters[Filter.vegan]! && !meal.isVegan) {
-        return false;
-      }
-      return true;
-    }).toList();
+    // final meals = ref.watch(mealProvider);
+    // final activeFilters = ref.watch(filterProvider);
+    final availableMeals = ref.watch(filteredMealProvider);
+    // meals.where((meal) {
+    //   if (activeFilters[Filter.glutenFree]! && !meal.isGlutenFree) {
+    //     return false;
+    //   }
+    //   if (activeFilters[Filter.lactoseFree]! && !meal.isLactoseFree) {
+    //     return false;
+    //   }
+    //   if (activeFilters[Filter.vegetarian]! && !meal.isVegetarian) {
+    //     return false;
+    //   }
+    //   if (activeFilters[Filter.vegan]! && !meal.isVegan) {
+    //     return false;
+    //   }
+    //   return true;
+    // }).toList();
     Widget activeScreen = CategoryScreen(
       //onToggleFavorite: _toggleMealFavoriteStatus,
       availableMeals: availableMeals,
