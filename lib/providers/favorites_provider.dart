@@ -19,6 +19,7 @@ class FavoritesMealsNotifier extends StateNotifier<List<Meal>>{
 
 }
 
+// ignore: non_constant_identifier_names
 final fevoritesMeals_Provider = StateNotifierProvider<FavoritesMealsNotifier,List<Meal>>((ref){
   return FavoritesMealsNotifier();
 });
