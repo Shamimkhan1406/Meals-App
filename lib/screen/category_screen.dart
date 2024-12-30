@@ -5,7 +5,7 @@ import 'package:meals_app/screen/meals.dart';
 import 'package:meals_app/widget/category_grid_item.dart';
 import 'package:meals_app/model/category.dart';
 
-class CategoryScreen extends StatelessWidget {
+class CategoryScreen extends StatefulWidget {
   const CategoryScreen({
     super.key,
     //required this.onToggleFavorite,
@@ -13,8 +13,32 @@ class CategoryScreen extends StatelessWidget {
   });
   //final void Function(Meal meal) onToggleFavorite;
   final List<Meal> availableMeals;
+
+  @override
+  State<CategoryScreen> createState() => _CategoryScreenState();
+}
+
+class _CategoryScreenState extends State<CategoryScreen> with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  @override
+  void initState() {
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+      lowerBound: 0,
+      upperBound: 1,
+
+    );
+    super.initState();
+    _animationController.forward();
+  }
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
   void _selectCategory(BuildContext context, Category category) {
-    final filteredMeals = availableMeals
+    final filteredMeals = widget.availableMeals
         .where((element) => element.categories.contains(category.id))
         .toList();
     Navigator.of(context).push(MaterialPageRoute(
@@ -27,7 +51,8 @@ class CategoryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView(
+    return AnimatedBuilder(animation: _animationController, 
+    child: GridView(
       padding: const EdgeInsets.all(16),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
@@ -53,6 +78,8 @@ class CategoryScreen extends StatelessWidget {
       //   Text('5',style: TextStyle(color: Colors.white),),
       //   Text('6',style: TextStyle(color: Colors.white),),
       // ],
+    ),
+    builder: (context, child) => Padding(padding: EdgeInsets.only(top:100 - _animationController.value * 100), child: child,),
     );
   }
 }
