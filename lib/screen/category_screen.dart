@@ -79,7 +79,13 @@ class _CategoryScreenState extends State<CategoryScreen> with SingleTickerProvid
       //   Text('6',style: TextStyle(color: Colors.white),),
       // ],
     ),
-    builder: (context, child) => Padding(padding: EdgeInsets.only(top:100 - _animationController.value * 100), child: child,),
+    builder: (context, child) => SlideTransition(position: Tween(
+        begin: const Offset(0,0.3), 
+        end: const Offset(0,0),
+      ).animate(CurvedAnimation(parent: _animationController, curve: Curves.easeInOut)),
+    child: child,
+    ),
+    //Padding(padding: EdgeInsets.only(top:100 - _animationController.value * 100), child: child,),
     );
   }
 }
